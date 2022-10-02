@@ -5,5 +5,14 @@ delete config.chromeExtensionBoilerplate;
 
 webpack(
   config,
-  function (err) { if (err) throw err; }
+  (err, stats) => { // [Stats Object](#stats-object)
+	if (err) {
+	  throw err;
+	}
+
+	if (stats.hasErrors()) {
+		throw stats.compilation.errors[0];
+	}
+	// Done processing
+  }
 );

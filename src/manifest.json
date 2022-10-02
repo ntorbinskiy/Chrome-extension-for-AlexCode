@@ -1,16 +1,25 @@
 {
-  "name": "Chrome Extension Webpack",
-  "options_page": "options.html",
-  "background": {
-    "page": "background.html"
-  },
-  "browser_action": {
-    "default_popup": "popup.html",
-    "default_icon": "icon-34.png"
-  },
-  "icons": {
-    "128": "icon-128.png"
-  },
-  "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+	"name": "Todoist extension",
+	"description": "Todoist extension",
+	"version": "1.0",
+	"content_scripts": [
+		{
+			"matches": ["https://todoist.com/app/*"],
+			"runat": "documet-idle",
+			"js": ["content.bundle.js"]
+		}
+	],
+	"options_page": "options.html",
+	"background": {
+		"page": "background.html"
+	},
+	"browser_action": {
+		"default_popup": "popup.html",
+		"default_icon": "icon-34.png"
+	},
+	"icons": {
+		"128": "icon-128.png"
+	},
+	"manifest_version": 3,
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
