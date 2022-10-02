@@ -24,7 +24,7 @@ const activityBlock = () => {
           .map((i) => {
             if (isCompleteTask(i)) {
 			  const itemScore = getItemScore(i.innerText, regexForScoreAndPoints);
-              return itemScore === undefined ? 0 : itemScore;
+              return itemScore ?? 0;
             } else {
               return 0;
             }
