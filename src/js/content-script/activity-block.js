@@ -23,7 +23,10 @@ const activityBlock = () => {
         return childNodes
           .map((i) => {
             if (isCompleteTask(i)) {
-			  const itemScore = getItemScore(i.innerText, regexForScoreAndPoints);
+              const itemScore = getItemScore(
+                i.innerText,
+                regexForScoreAndPoints
+              );
               return itemScore ?? 0;
             } else {
               return 0;

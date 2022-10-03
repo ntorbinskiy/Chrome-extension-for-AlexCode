@@ -4,9 +4,13 @@
 	"version": "1.0",
 	"content_scripts": [
 		{
-			"matches": ["https://todoist.com/app/*"],
+			"matches": [
+				"https://todoist.com/app/*"
+			],
 			"runat": "documet-idle",
-			"js": ["content.bundle.js"]
+			"js": [
+				"content.bundle.js"
+			]
 		}
 	],
 	"options_page": "options.html",
