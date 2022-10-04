@@ -86,13 +86,14 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
     if (isIconCompleted(element)) {
       return;
     }
-
-    const textOfDiv = elementParent.childNodes[1].childNodes[0];
+    const listItem = elementParent.childNodes;
     //div > task name
+    console.log(listItem);
     const span = elementParent.childNodes[1].childNodes[1];
     //time of task
     const taskName =
-      textOfDiv.childNodes[2].childNodes[0].childNodes[0].textContent;
+      elementParent.childNodes[1].childNodes[0].childNodes[2].childNodes[0]
+        .childNodes[0].textContent;
 
     const score = getItemScore(taskName, regexForScoreAndPoints);
     if (score === undefined) {
@@ -100,14 +101,20 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
       if (span.id === "nopoints") {
         return;
       }
-      const noPoints = document.createElement("div");
+      const noPoints = document.createElement("span");
       noPoints.innerHTML = "No points entered for this task";
       span.id = "nopoints";
-      noPoints.fontSize = "11px";
-      noPoints.fontWeight = 500;
-      noPoints.fontFamily = "Inter";
+      noPoints.style.fontSize = "11px";
+      noPoints.style.fontWeight = 500;
+      noPoints.style.fontFamily = "Inter";
       noPoints.style.color = "#BC760D";
-      span.after(noPoints);
+      noPoints.style.position = "relative";
+      noPoints.style.top = "0px";
+      noPoints.style.left = "0px";
+      if (taskName.length >= 86) {
+        noPoints.style.left = "64px";
+      }
+      listItem[1].after(noPoints);
     }
   });
 };
