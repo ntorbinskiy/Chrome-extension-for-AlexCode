@@ -62,6 +62,7 @@ const pastDivToPage = (points, numForId, parent) => {
   const counterNum = parent[numForId].childNodes[0].childNodes[1];
 
   scoreBlock.append(textForScore, sumOfScores);
+
   setStylesForScores(sumOfScores, textForScore, counterNum, points);
   if (
     counterNum.id === "counter" &&
