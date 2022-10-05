@@ -1,0 +1,1 @@
+{"description":"Todoist extension","version":"1.1","name":"Todoist extension","content_scripts":[{"matches":["https://todoist.com/app/*"],"runat":"documet-idle","js":["content.bundle.js"]}],"web_accessible_resources":[{"resources":["icon.png"],"matches":["<all_urls>"]}],"manifest_version":3}
