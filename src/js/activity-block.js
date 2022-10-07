@@ -120,21 +120,23 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
 };
 
 const activityBlock = () => {
-  if (window.location.href.includes("https://todoist.com/app/activity")) {
-    connectFonts();
-
-    const sectionElem = document.getElementsByClassName("section");
-    const items = document.querySelectorAll("ul.items");
-    const itemsArray = Array.from(items);
-    const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
-
-    getItemsScores(itemsArray, getItemScore, regexForScoreAndPoints).map(
-      (item, index) => {
-        return pastDivToPage(item, index, sectionElem);
-      }
-    );
-
-    checkIsTaskCorrect(regexForScoreAndPoints);
+  if (!window.location.href.includes("https://todoist.com/app/activity")) {
+    return;
   }
+  connectFonts();
+
+  const sectionElem = document.getElementsByClassName("section");
+  const items = document.querySelectorAll("ul.items");
+  const itemsArray = Array.from(items);
+  const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
+
+  getItemsScores(itemsArray, getItemScore, regexForScoreAndPoints).map(
+    (item, index) => {
+      return pastDivToPage(item, index, sectionElem);
+    }
+  );
+
+  checkIsTaskCorrect(regexForScoreAndPoints);
 };
+
 export default activityBlock;
