@@ -8,7 +8,7 @@ _I'll assume that you already read the [Webpack docs](https://webpack.js.org) an
 4. Run `yarn`.
 5. Change the package's name and description on `package.json`.
 6. Change the name of your extension on `./src/manifest.json`.
-7. Run `yarn run start`
+7. Run `yarn build`
 8. Load your extension on Chrome following:
    1. Access `chrome://extensions/`
    2. Check `Developer mode`
