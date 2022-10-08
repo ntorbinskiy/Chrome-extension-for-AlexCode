@@ -55,7 +55,7 @@ const linkFunc = () => {
         button.className = "button-href";
         button.style.height = "24px";
         button.style.width = "24px";
-        button.style.marginTop = "1px";
+        button.style.marginTop = "-1px";
 
         item.addEventListener("mouseenter", () => {
           if (!(btn_link_parent[0].className === "button-href")) {
