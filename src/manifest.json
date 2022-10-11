@@ -9,11 +9,5 @@
       "js": ["content.bundle.js"]
     }
   ],
-  "web_accessible_resources": [
-    {
-      "resources": ["icon.svg"],
-      "matches": ["<all_urls>"]
-    }
-  ],
   "manifest_version": 3
 }
