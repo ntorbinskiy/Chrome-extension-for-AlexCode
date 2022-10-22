@@ -23,62 +23,70 @@ const createSvg = (iconSvg, iconImage) => {
   return iconSvg;
 };
 
-const linkFunc = () => {
-  if (document.getElementsByClassName("button-href").length < 1) {
-    const list = document.getElementsByClassName("items");
+const buttonStyles = (button) => {
+  button.className = "button-href";
+  button.style.height = "24px";
+  button.style.width = "24px";
+  button.style.marginTop = "-1px";
+};
+const nodeToArray = (node) => {
+  return Array.from(node);
+};
 
-    Array.from(list).map((element) =>
-      Array.from(element.childNodes).map((item, i) => {
-        const button = document.createElement("button");
+const linkLogic = () => {
+  //   if (!(document.getElementsByClassName("button-href").length < 1)) {
+  //     console.log("legnght>==1");
+  //     return;
+  //   }
 
-        const iconSvg = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "svg"
-        );
-        const iconImage = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "image"
-        );
+  const listOfTasks = document.getElementsByClassName("items");
 
-        button.appendChild(createSvg(iconSvg, iconImage));
+  nodeToArray(listOfTasks).map((task) =>
+    nodeToArray(task.childNodes).map((item) => {
+      const button = document.createElement("button");
 
-        const dataSet = item.dataset.itemId;
+      const iconSvg = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      );
 
-        const btn_link_parent = item?.childNodes[0]?.childNodes[4]?.childNodes;
+      const iconImage = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "image"
+      );
 
-        if (!btn_link_parent) {
-          return;
+      button.appendChild(createSvg(iconSvg, iconImage));
+
+      const btnLinkParent = item?.childNodes[0]?.childNodes[4]?.childNodes;
+
+      if (!btnLinkParent) {
+        return;
+      }
+
+      buttonStyles(button);
+
+      item.addEventListener("mouseenter", () => {
+        if (!(btnLinkParent[0].className === "button-href")) {
+          console.log("Check aproved", listOfTasks);
+          btnLinkParent[0].before(button);
         }
+      });
 
-        const url = `https://todoist.com/app/task/${dataSet}/0`;
-
-        button.className = "button-href";
-        button.style.height = "24px";
-        button.style.width = "24px";
-        button.style.marginTop = "-1px";
-
-        item.addEventListener("mouseenter", () => {
-          if (!(btn_link_parent[0].className === "button-href")) {
-            btn_link_parent[0].before(button);
-          }
-        });
-
-        button.addEventListener;
-        "mouseenter",
-          () => {
-            button.style.backgroundColor = "#bdbaba";
-          };
-        button.addEventListener("click", () => {
-          window.open(url, "_blank").focus();
-        });
-      })
-    );
-  }
+      button.addEventListener("click", () => {
+        window
+          .open(
+            `https://todoist.com/app/task/${item.dataset.itemId}/0`,
+            "_blank"
+          )
+          .focus();
+      });
+    })
+  );
 };
 
 const projectBlock = () => {
   if (window.location.href.includes("https://todoist.com/app/project")) {
-    linkFunc();
+    linkLogic();
   }
 };
 
