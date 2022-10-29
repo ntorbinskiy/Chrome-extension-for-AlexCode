@@ -29,31 +29,22 @@ const buttonStyles = (button) => {
   button.style.width = "24px";
   button.style.marginTop = "-1px";
 };
+
 const nodeToArray = (node) => {
   return Array.from(node);
 };
 
 const linkLogic = () => {
-  //   if (!(document.getElementsByClassName("button-href").length < 1)) {
-  //     console.log("legnght>==1");
-  //     return;
-  //   }
-
   const listOfTasks = document.getElementsByClassName("items");
 
   nodeToArray(listOfTasks).map((task) =>
     nodeToArray(task.childNodes).map((item) => {
       const button = document.createElement("button");
+      const svgPath = "http://www.w3.org/2000/svg";
 
-      const iconSvg = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "svg"
-      );
+      const iconSvg = document.createElementNS(svgPath, "svg");
 
-      const iconImage = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "image"
-      );
+      const iconImage = document.createElementNS(svgPath, "image");
 
       button.appendChild(createSvg(iconSvg, iconImage));
 
@@ -67,7 +58,6 @@ const linkLogic = () => {
 
       item.addEventListener("mouseenter", () => {
         if (!(btnLinkParent[0].className === "button-href")) {
-          console.log("Check aproved", listOfTasks);
           btnLinkParent[0].before(button);
         }
       });
