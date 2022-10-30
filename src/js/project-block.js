@@ -74,9 +74,64 @@ const linkLogic = () => {
   );
 };
 
+const totalPointsLogic = () => {
+  const namesOfTasks = document.querySelectorAll("div.task_content");
+  const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
+  const headerOfProject = document.querySelector("div.view_header__content");
+
+  const totalPointsParent = document.createElement("div");
+  const totalPointsElement = document.createElement("div");
+  const totalPointsSpan = document.createElement("span");
+
+  const totalpoints = Array.from(namesOfTasks)
+    .map((nameOfTaskItem) => {
+      const scoreText = nameOfTaskItem.textContent
+        .replaceAll("\n", " ")
+        .match(regexForScoreAndPoints)?.groups?.["score"];
+
+      return scoreText ? parseInt(scoreText) : 0;
+    })
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+  const link = document.createElement("link");
+  link.setAttribute("rel", "stylesheet");
+  link.setAttribute("type", "text/css");
+  link.setAttribute(
+    "href",
+    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+  );
+  document.head.appendChild(link);
+
+  headerOfProject.parentElement.style.paddingTop = "70px";
+
+  headerOfProject.childNodes[1].style.position = "relative";
+  headerOfProject.childNodes[1].style.bottom = "45px";
+  headerOfProject.childNodes[1].style.left = "217px";
+
+  totalPointsParent.style.display = "flex";
+
+  totalPointsElement.textContent = "Total points left for this project: ";
+  totalPointsElement.style.fontFamily = "Inter";
+  totalPointsElement.style.fontSize = "12px";
+
+  totalPointsSpan.textContent = totalpoints;
+  totalPointsSpan.style.fontFamily = "Inter";
+  totalPointsSpan.style.fontSize = "12px";
+  totalPointsSpan.style.fontWeight = "700";
+  totalPointsParent.append(totalPointsElement, totalPointsSpan);
+
+  if (headerOfProject.childNodes[2]?.id === "TOTAL_POINTS_ID") {
+    return;
+  } else {
+    headerOfProject.childNodes[1].after(totalPointsParent);
+    totalPointsParent.id = "TOTAL_POINTS_ID";
+  }
+};
+
 const projectBlock = () => {
   if (window.location.href.includes("https://todoist.com/app/project")) {
     linkLogic();
+    totalPointsLogic();
   }
 };
 
