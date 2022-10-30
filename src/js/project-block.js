@@ -74,25 +74,7 @@ const linkLogic = () => {
   );
 };
 
-const totalPointsLogic = () => {
-  const namesOfTasks = document.querySelectorAll("div.task_content");
-  const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
-  const headerOfProject = document.querySelector("div.view_header__content");
-
-  const totalPointsParent = document.createElement("div");
-  const totalPointsElement = document.createElement("div");
-  const totalPointsSpan = document.createElement("span");
-
-  const totalpoints = Array.from(namesOfTasks)
-    .map((nameOfTaskItem) => {
-      const scoreText = nameOfTaskItem.textContent
-        .replaceAll("\n", " ")
-        .match(regexForScoreAndPoints)?.groups?.["score"];
-
-      return scoreText ? parseInt(scoreText) : 0;
-    })
-    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-
+const connectFonts = () => {
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
   link.setAttribute("type", "text/css");
@@ -101,23 +83,69 @@ const totalPointsLogic = () => {
     "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
   );
   document.head.appendChild(link);
+};
+
+const countTotalPoints = (namesOfTasks) => {
+  const regexForTotalPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
+
+  return Array.from(namesOfTasks)
+    .map((nameOfTaskItem) => {
+      const scoreText = nameOfTaskItem.textContent
+        .replaceAll("\n", " ")
+        .match(regexForTotalPoints)?.groups?.["score"];
+
+      return scoreText ? parseInt(scoreText) : 0;
+    })
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+};
+
+const totalPointsStyle = (
+  headerOfProject,
+  totalPointsElement,
+  totalPointsSpan,
+  totalPointsParent,
+  totalPoints
+) => {
+  const headerGroupOfButtons = headerOfProject.childNodes[1];
 
   headerOfProject.parentElement.style.paddingTop = "70px";
 
-  headerOfProject.childNodes[1].style.position = "relative";
-  headerOfProject.childNodes[1].style.bottom = "45px";
-  headerOfProject.childNodes[1].style.left = "217px";
+  headerGroupOfButtons.style.position = "relative";
+  headerGroupOfButtons.style.bottom = "45px";
+  headerGroupOfButtons.style.left = "217px";
 
   totalPointsParent.style.display = "flex";
+  totalPointsParent.style.alignSelf = "center";
 
   totalPointsElement.textContent = "Total points left for this project: ";
   totalPointsElement.style.fontFamily = "Inter";
   totalPointsElement.style.fontSize = "12px";
 
-  totalPointsSpan.textContent = totalpoints;
+  totalPointsSpan.textContent = totalPoints;
   totalPointsSpan.style.fontFamily = "Inter";
   totalPointsSpan.style.fontSize = "12px";
   totalPointsSpan.style.fontWeight = "700";
+};
+
+const totalPointsLogic = () => {
+  const namesOfTasks = document.querySelectorAll("div.task_content");
+
+  const headerOfProject = document.querySelector("div.view_header__content");
+
+  const totalPointsParent = document.createElement("div");
+  const totalPointsElement = document.createElement("div");
+  const totalPointsSpan = document.createElement("span");
+
+  connectFonts();
+
+  totalPointsStyle(
+    headerOfProject,
+    totalPointsElement,
+    totalPointsSpan,
+    totalPointsParent,
+    countTotalPoints(namesOfTasks)
+  );
+
   totalPointsParent.append(totalPointsElement, totalPointsSpan);
 
   if (headerOfProject.childNodes[2]?.id === "TOTAL_POINTS_ID") {
