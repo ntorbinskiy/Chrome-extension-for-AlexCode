@@ -64,10 +64,7 @@ const linkLogic = () => {
 
       button.addEventListener("click", () => {
         window
-          .open(
-            `https://todoist.com/app/task/${item.dataset.itemId}/0`,
-            "_blank"
-          )
+          .open(`https://todoist.com/app/task/${item.dataset.itemId}`, "_blank")
           .focus();
       });
     })
