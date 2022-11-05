@@ -116,6 +116,7 @@ const totalPointsStyle = (
 
   totalPointsParent.style.display = "flex";
   totalPointsParent.style.alignSelf = "center";
+  totalPointsParent.style.gap = "4px";
 
   totalPointsElement.textContent = "Total points left for this project: ";
   totalPointsElement.style.fontFamily = "Inter";
@@ -125,6 +126,7 @@ const totalPointsStyle = (
   totalPointsSpan.style.fontFamily = "Inter";
   totalPointsSpan.style.fontSize = "12px";
   totalPointsSpan.style.fontWeight = "700";
+  totalPointsSpan.id = "TOTAL_POINTS_SPAN_ID";
 };
 
 const totalPointsLogic = () => {
@@ -135,6 +137,9 @@ const totalPointsLogic = () => {
   const totalPointsParent = document.createElement("div");
   const totalPointsElement = document.createElement("div");
   const totalPointsSpan = document.createElement("span");
+
+  const totalPointsId = "#TOTAL_POINTS_ID";
+  const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
 
   connectFonts();
 
@@ -148,7 +153,14 @@ const totalPointsLogic = () => {
 
   totalPointsParent.append(totalPointsElement, totalPointsSpan);
 
-  if (headerOfProject.childNodes[2]?.id === "TOTAL_POINTS_ID") {
+  if (
+    headerOfProject.querySelector(totalPointsId) &&
+    +headerOfProject.querySelector(totalPointsSpanId)?.textContent !==
+      countTotalPoints(namesOfTasks)
+  ) {
+    headerOfProject.querySelector(totalPointsSpanId).textContent =
+      countTotalPoints(namesOfTasks);
+  } else if (headerOfProject.querySelector(totalPointsId)) {
     return;
   } else {
     headerOfProject.childNodes[1].after(totalPointsParent);
