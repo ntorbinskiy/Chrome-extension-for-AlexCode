@@ -71,9 +71,104 @@ const linkLogic = () => {
   );
 };
 
+const connectFonts = () => {
+  const link = document.createElement("link");
+  link.setAttribute("rel", "stylesheet");
+  link.setAttribute("type", "text/css");
+  link.setAttribute(
+    "href",
+    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+  );
+  document.head.appendChild(link);
+};
+
+const countTotalPoints = (namesOfTasks) => {
+  const regexForTotalPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
+
+  return Array.from(namesOfTasks)
+    .map((nameOfTaskItem) => {
+      const scoreText = nameOfTaskItem.textContent
+        .replaceAll("\n", " ")
+        .match(regexForTotalPoints)?.groups?.["score"];
+
+      return scoreText ? parseInt(scoreText) : 0;
+    })
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+};
+
+const totalPointsStyle = (
+  headerOfProject,
+  totalPointsElement,
+  totalPointsSpan,
+  totalPointsParent,
+  totalPoints
+) => {
+  const headerGroupOfButtons = headerOfProject.childNodes[1];
+
+  headerOfProject.parentElement.style.paddingTop = "70px";
+
+  headerGroupOfButtons.style.position = "relative";
+  headerGroupOfButtons.style.bottom = "45px";
+  headerGroupOfButtons.style.left = "217px";
+
+  totalPointsParent.style.display = "flex";
+  totalPointsParent.style.alignSelf = "center";
+  totalPointsParent.style.gap = "4px";
+
+  totalPointsElement.textContent = "Total points left for this project: ";
+  totalPointsElement.style.fontFamily = "Inter";
+  totalPointsElement.style.fontSize = "12px";
+
+  totalPointsSpan.textContent = totalPoints;
+  totalPointsSpan.style.fontFamily = "Inter";
+  totalPointsSpan.style.fontSize = "12px";
+  totalPointsSpan.style.fontWeight = "700";
+  totalPointsSpan.id = "TOTAL_POINTS_SPAN_ID";
+};
+
+const totalPointsLogic = () => {
+  const namesOfTasks = document.querySelectorAll("div.task_content");
+
+  const headerOfProject = document.querySelector("div.view_header__content");
+
+  const totalPointsParent = document.createElement("div");
+  const totalPointsElement = document.createElement("div");
+  const totalPointsSpan = document.createElement("span");
+
+  const totalPointsId = "#TOTAL_POINTS_ID";
+  const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
+
+  connectFonts();
+
+  totalPointsStyle(
+    headerOfProject,
+    totalPointsElement,
+    totalPointsSpan,
+    totalPointsParent,
+    countTotalPoints(namesOfTasks)
+  );
+
+  totalPointsParent.append(totalPointsElement, totalPointsSpan);
+
+  if (
+    headerOfProject.querySelector(totalPointsId) &&
+    +headerOfProject.querySelector(totalPointsSpanId)?.textContent !==
+      countTotalPoints(namesOfTasks)
+  ) {
+    headerOfProject.querySelector(totalPointsSpanId).textContent =
+      countTotalPoints(namesOfTasks);
+  } else if (headerOfProject.querySelector(totalPointsId)) {
+    return;
+  } else {
+    headerOfProject.childNodes[1].after(totalPointsParent);
+    totalPointsParent.id = "TOTAL_POINTS_ID";
+  }
+};
+
 const projectBlock = () => {
   if (window.location.href.includes("https://todoist.com/app/project")) {
     linkLogic();
+    totalPointsLogic();
   }
 };
 
