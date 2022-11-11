@@ -113,12 +113,6 @@ const totalPointsStyle = (
   totalPointsParent,
   totalPoints
 ) => {
-  const headerGroupOfButtons = headerOfProject.childNodes[1];
-
-  headerGroupOfButtons.style.position = "relative";
-  headerGroupOfButtons.style.bottom = "45px";
-  headerGroupOfButtons.style.left = "217px";
-
   totalPointsParent.style.display = "flex";
   totalPointsParent.style.alignSelf = "center";
   totalPointsParent.style.gap = "4px";
