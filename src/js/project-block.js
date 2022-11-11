@@ -115,8 +115,6 @@ const totalPointsStyle = (
 ) => {
   const headerGroupOfButtons = headerOfProject.childNodes[1];
 
-  headerOfProject.parentElement.style.paddingTop = "70px";
-
   headerGroupOfButtons.style.position = "relative";
   headerGroupOfButtons.style.bottom = "45px";
   headerGroupOfButtons.style.left = "217px";
