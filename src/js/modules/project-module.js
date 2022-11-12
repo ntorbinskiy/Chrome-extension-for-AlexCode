@@ -130,9 +130,7 @@ const totalPointsStyle = (
 
 const totalPointsLogic = () => {
   const namesOfTasks = document.querySelectorAll("div.task_content");
-
   const headerOfProject = document.querySelector("div.view_header__content");
-
   const totalPointsParent = document.createElement("div");
   const totalPointsElement = document.createElement("div");
   const totalPointsSpan = document.createElement("span");
@@ -153,6 +151,7 @@ const totalPointsLogic = () => {
     editProjectName,
     countTotalPoints(namesOfTasks)
   );
+
   totalPointsElement.append(totalPointsSpan);
   totalPointsParent.append(totalPointsElement);
 

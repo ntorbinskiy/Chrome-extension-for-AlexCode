@@ -48,21 +48,21 @@ const pastDivToPage = (points, numForId, parent) => {
   const textForScore = document.createElement("span");
   const sumOfScores = document.createElement("span");
 
-  const counterNum = parent[numForId].childNodes[0].childNodes[1];
+  const scoreBlockParent = parent[numForId].childNodes[0].childNodes[1];
 
   scoreBlock.append(textForScore, sumOfScores);
 
-  setStylesForScores(sumOfScores, textForScore, counterNum, points);
+  setStylesForScores(sumOfScores, textForScore, scoreBlockParent, points);
   if (
-    counterNum.id === "counter" &&
-    +counterNum?.childNodes[1]?.childNodes[1].textContent !== points
+    scoreBlockParent.id === "counter" &&
+    +scoreBlockParent?.childNodes[1]?.childNodes[1].textContent !== points
   ) {
-    counterNum.childNodes[1].childNodes[1].textContent = points;
-  } else if (counterNum.id === "counter") {
+    scoreBlockParent.childNodes[1].childNodes[1].textContent = points;
+  } else if (scoreBlockParent.id === "counter") {
     return;
   } else {
-    counterNum.append(scoreBlock);
-    counterNum.id = `counter`;
+    scoreBlockParent.append(scoreBlock);
+    scoreBlockParent.id = `counter`;
   }
 };
 

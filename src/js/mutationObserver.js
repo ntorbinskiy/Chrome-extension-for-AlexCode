@@ -4,6 +4,7 @@ const config = {
   childList: true,
   subtree: true,
 };
+
 const callback = (mutationList, observer) => {
   //the second arg is required    ⬆️
   for (const mutation of mutationList) {
@@ -14,6 +15,7 @@ const callback = (mutationList, observer) => {
 };
 
 const observer = new MutationObserver(callback);
+
 const observeScript = () => {
   observer.observe(document.documentElement, config);
 };
