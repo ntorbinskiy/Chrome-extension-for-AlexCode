@@ -5,17 +5,6 @@ const isCompleteTask = (taskElement) =>
 const isIconCompleted = (element) =>
   element.children[0].dataset.svgsPath !== "sm1/notification_completed.svg";
 
-const connectFonts = () => {
-  const link = document.createElement("link");
-  link.setAttribute("rel", "stylesheet");
-  link.setAttribute("type", "text/css");
-  link.setAttribute(
-    "href",
-    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-  );
-  document.head.appendChild(link);
-};
-
 const getItemScore = (name, regex) => {
   const scoreText = name.replaceAll("\n", " ").match(regex)?.groups?.["score"];
   return scoreText ? parseInt(scoreText) : undefined;
@@ -59,21 +48,21 @@ const pastDivToPage = (points, numForId, parent) => {
   const textForScore = document.createElement("span");
   const sumOfScores = document.createElement("span");
 
-  const counterNum = parent[numForId].childNodes[0].childNodes[1];
+  const scoreBlockParent = parent[numForId].childNodes[0].childNodes[1];
 
   scoreBlock.append(textForScore, sumOfScores);
 
-  setStylesForScores(sumOfScores, textForScore, counterNum, points);
+  setStylesForScores(sumOfScores, textForScore, scoreBlockParent, points);
   if (
-    counterNum.id === "counter" &&
-    +counterNum?.childNodes[1]?.childNodes[1].textContent !== points
+    scoreBlockParent.id === "counter" &&
+    +scoreBlockParent?.childNodes[1]?.childNodes[1].textContent !== points
   ) {
-    counterNum.childNodes[1].childNodes[1].textContent = points;
-  } else if (counterNum.id === "counter") {
+    scoreBlockParent.childNodes[1].childNodes[1].textContent = points;
+  } else if (scoreBlockParent.id === "counter") {
     return;
   } else {
-    counterNum.append(scoreBlock);
-    counterNum.id = `counter`;
+    scoreBlockParent.append(scoreBlock);
+    scoreBlockParent.id = `counter`;
   }
 };
 
@@ -87,10 +76,9 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
       return;
     }
     const listItem = elementParent.childNodes;
-    //div > task name
-    console.log(listItem);
+
     const span = elementParent.childNodes[1].childNodes[1];
-    //time of task
+
     const taskName =
       elementParent.childNodes[1].childNodes[0].childNodes[2].childNodes[0]
         .childNodes[0].textContent;
@@ -123,7 +111,6 @@ const activityBlock = () => {
   if (!window.location.href.includes("https://todoist.com/app/activity")) {
     return;
   }
-  connectFonts();
 
   const sectionElem = document.getElementsByClassName("section");
   const items = document.querySelectorAll("ul.items");

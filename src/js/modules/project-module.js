@@ -81,17 +81,6 @@ const linkLogic = () => {
   );
 };
 
-const connectFonts = () => {
-  const link = document.createElement("link");
-  link.setAttribute("rel", "stylesheet");
-  link.setAttribute("type", "text/css");
-  link.setAttribute(
-    "href",
-    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-  );
-  document.head.appendChild(link);
-};
-
 const countTotalPoints = (namesOfTasks) => {
   const regexForTotalPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
@@ -107,23 +96,26 @@ const countTotalPoints = (namesOfTasks) => {
 };
 
 const totalPointsStyle = (
-  headerOfProject,
   totalPointsElement,
   totalPointsSpan,
+  buttonsGroup,
   totalPointsParent,
+  editProjectName,
   totalPoints
 ) => {
-  const headerGroupOfButtons = headerOfProject.childNodes[1];
+  if (buttonsGroup.clientWidth <= 291) {
+    buttonsGroup.style.left = "205px";
+  } else if (editProjectName) {
+    buttonsGroup.style.left = "121px";
+  } else {
+    buttonsGroup.style.left = "189px";
+  }
 
-  headerOfProject.parentElement.style.paddingTop = "70px";
+  buttonsGroup.style.position = "relative";
+  buttonsGroup.style.bottom = "24px";
 
-  headerGroupOfButtons.style.position = "relative";
-  headerGroupOfButtons.style.bottom = "45px";
-  headerGroupOfButtons.style.left = "217px";
-
-  totalPointsParent.style.display = "flex";
-  totalPointsParent.style.alignSelf = "center";
-  totalPointsParent.style.gap = "4px";
+  totalPointsParent.style.order = "1";
+  totalPointsParent.style.textAlign = "center";
 
   totalPointsElement.textContent = "Total points left for this project: ";
   totalPointsElement.style.fontFamily = "Inter";
@@ -138,27 +130,30 @@ const totalPointsStyle = (
 
 const totalPointsLogic = () => {
   const namesOfTasks = document.querySelectorAll("div.task_content");
-
   const headerOfProject = document.querySelector("div.view_header__content");
-
   const totalPointsParent = document.createElement("div");
   const totalPointsElement = document.createElement("div");
   const totalPointsSpan = document.createElement("span");
-
+  const buttonsGroup = headerOfProject.querySelector(
+    "div.view_header__actions"
+  );
+  const editProjectName = document.querySelector(
+    "[data-testid=view_header__form]"
+  );
   const totalPointsId = "#TOTAL_POINTS_ID";
   const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
 
-  connectFonts();
-
   totalPointsStyle(
-    headerOfProject,
     totalPointsElement,
     totalPointsSpan,
+    buttonsGroup,
     totalPointsParent,
+    editProjectName,
     countTotalPoints(namesOfTasks)
   );
 
-  totalPointsParent.append(totalPointsElement, totalPointsSpan);
+  totalPointsElement.append(totalPointsSpan);
+  totalPointsParent.append(totalPointsElement);
 
   if (
     headerOfProject.querySelector(totalPointsId) &&
