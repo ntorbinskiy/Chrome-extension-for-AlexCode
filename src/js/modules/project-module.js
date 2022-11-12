@@ -81,17 +81,6 @@ const linkLogic = () => {
   );
 };
 
-const connectFonts = () => {
-  const link = document.createElement("link");
-  link.setAttribute("rel", "stylesheet");
-  link.setAttribute("type", "text/css");
-  link.setAttribute(
-    "href",
-    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-  );
-  document.head.appendChild(link);
-};
-
 const countTotalPoints = (namesOfTasks) => {
   const regexForTotalPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
@@ -107,15 +96,14 @@ const countTotalPoints = (namesOfTasks) => {
 };
 
 const totalPointsStyle = (
-  headerOfProject,
   totalPointsElement,
   totalPointsSpan,
-  totalPointsParent,
+  buttonsGroup,
   totalPoints
 ) => {
-  totalPointsParent.style.display = "flex";
-  totalPointsParent.style.alignSelf = "center";
-  totalPointsParent.style.gap = "4px";
+  buttonsGroup.style.position = "relative";
+  buttonsGroup.style.bottom = "24px";
+  buttonsGroup.style.left = " 203px";
 
   totalPointsElement.textContent = "Total points left for this project: ";
   totalPointsElement.style.fontFamily = "Inter";
@@ -136,21 +124,21 @@ const totalPointsLogic = () => {
   const totalPointsParent = document.createElement("div");
   const totalPointsElement = document.createElement("div");
   const totalPointsSpan = document.createElement("span");
+  const buttonsGroup = headerOfProject.querySelector(
+    "div.view_header__actions"
+  );
 
   const totalPointsId = "#TOTAL_POINTS_ID";
   const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
 
-  connectFonts();
-
   totalPointsStyle(
-    headerOfProject,
     totalPointsElement,
     totalPointsSpan,
-    totalPointsParent,
+    buttonsGroup,
     countTotalPoints(namesOfTasks)
   );
-
-  totalPointsParent.append(totalPointsElement, totalPointsSpan);
+  totalPointsElement.append(totalPointsSpan);
+  totalPointsParent.append(totalPointsElement);
 
   if (
     headerOfProject.querySelector(totalPointsId) &&

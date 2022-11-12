@@ -5,17 +5,6 @@ const isCompleteTask = (taskElement) =>
 const isIconCompleted = (element) =>
   element.children[0].dataset.svgsPath !== "sm1/notification_completed.svg";
 
-const connectFonts = () => {
-  const link = document.createElement("link");
-  link.setAttribute("rel", "stylesheet");
-  link.setAttribute("type", "text/css");
-  link.setAttribute(
-    "href",
-    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-  );
-  document.head.appendChild(link);
-};
-
 const getItemScore = (name, regex) => {
   const scoreText = name.replaceAll("\n", " ").match(regex)?.groups?.["score"];
   return scoreText ? parseInt(scoreText) : undefined;
@@ -123,7 +112,6 @@ const activityBlock = () => {
   if (!window.location.href.includes("https://todoist.com/app/activity")) {
     return;
   }
-  connectFonts();
 
   const sectionElem = document.getElementsByClassName("section");
   const items = document.querySelectorAll("ul.items");

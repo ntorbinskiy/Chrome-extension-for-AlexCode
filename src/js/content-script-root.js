@@ -1,10 +1,9 @@
-import activityBlock from "./activity-block";
-import projectBlock from "./project-block";
-const runApp = () => {
-  activityBlock();
-  projectBlock();
-};
+import mutationObserver from "./mutationObserver";
+import runApp from "./modules/runApp";
+import connectFonts from "./fonts/connectFonts";
+connectFonts();
 
-window.setInterval(function () {
-  runApp();
+setTimeout(async () => {
+  await runApp();
+  mutationObserver();
 }, 1000);
