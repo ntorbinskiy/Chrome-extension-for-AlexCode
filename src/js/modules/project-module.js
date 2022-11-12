@@ -103,8 +103,8 @@ const totalPointsStyle = (
   editProjectName,
   totalPoints
 ) => {
-  if (buttonsGroup.clientHeight <= "291px") {
-    buttonsGroup.style.left = " 203px";
+  if (buttonsGroup.clientWidth <= 291) {
+    buttonsGroup.style.left = "205px";
   } else if (editProjectName) {
     buttonsGroup.style.left = "121px";
   } else {

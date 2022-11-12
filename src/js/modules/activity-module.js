@@ -76,10 +76,9 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
       return;
     }
     const listItem = elementParent.childNodes;
-    //div > task name
-    console.log(listItem);
+
     const span = elementParent.childNodes[1].childNodes[1];
-    //time of task
+
     const taskName =
       elementParent.childNodes[1].childNodes[0].childNodes[2].childNodes[0]
         .childNodes[0].textContent;
