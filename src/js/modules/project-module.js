@@ -99,11 +99,23 @@ const totalPointsStyle = (
   totalPointsElement,
   totalPointsSpan,
   buttonsGroup,
+  totalPointsParent,
+  editProjectName,
   totalPoints
 ) => {
+  if (buttonsGroup.clientHeight <= "291px") {
+    buttonsGroup.style.left = " 203px";
+  } else if (editProjectName) {
+    buttonsGroup.style.left = "121px";
+  } else {
+    buttonsGroup.style.left = "189px";
+  }
+
   buttonsGroup.style.position = "relative";
   buttonsGroup.style.bottom = "24px";
-  buttonsGroup.style.left = " 203px";
+
+  totalPointsParent.style.order = "1";
+  totalPointsParent.style.textAlign = "center";
 
   totalPointsElement.textContent = "Total points left for this project: ";
   totalPointsElement.style.fontFamily = "Inter";
@@ -127,7 +139,9 @@ const totalPointsLogic = () => {
   const buttonsGroup = headerOfProject.querySelector(
     "div.view_header__actions"
   );
-
+  const editProjectName = document.querySelector(
+    "[data-testid=view_header__form]"
+  );
   const totalPointsId = "#TOTAL_POINTS_ID";
   const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
 
@@ -135,6 +149,8 @@ const totalPointsLogic = () => {
     totalPointsElement,
     totalPointsSpan,
     buttonsGroup,
+    totalPointsParent,
+    editProjectName,
     countTotalPoints(namesOfTasks)
   );
   totalPointsElement.append(totalPointsSpan);
