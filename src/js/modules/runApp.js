@@ -1,9 +1,9 @@
-import activityBlock from "./activity-module";
-import projectBlock from "./project-module";
+import activityModule from "./activity-module";
+import projectModule from "./project-module";
 
 const runApp = () => {
-  activityBlock();
-  projectBlock();
+  activityModule();
+  projectModule();
 };
 
 export default runApp;
