@@ -107,7 +107,7 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
   });
 };
 
-const activityBlock = () => {
+const activityModule = () => {
   if (!window.location.href.includes("https://todoist.com/app/activity")) {
     return;
   }
@@ -126,4 +126,4 @@ const activityBlock = () => {
   checkIsTaskCorrect(regexForScoreAndPoints);
 };
 
-export default activityBlock;
+export default activityModule;

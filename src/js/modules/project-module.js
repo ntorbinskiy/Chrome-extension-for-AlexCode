@@ -1,4 +1,4 @@
-const createSvg = (iconSvg, iconRect, iconLine, iconPath) => {
+const setupSvg = (iconSvg, iconRect, iconLine, iconPath) => {
   iconSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
   iconSvg.setAttribute("x", "0px");
   iconSvg.setAttribute("y", "0px");
@@ -32,7 +32,7 @@ const createSvg = (iconSvg, iconRect, iconLine, iconPath) => {
   return iconSvg;
 };
 
-const buttonStyles = (button) => {
+const setButtonStyles = (button) => {
   button.className = "button-href";
   button.style.height = "24px";
   button.style.width = "24px";
@@ -56,7 +56,7 @@ const linkLogic = () => {
       const iconLine = document.createElementNS(svgPath, "line");
       const iconPath = document.createElementNS(svgPath, "path");
 
-      button.appendChild(createSvg(iconSvg, iconRect, iconLine, iconPath));
+      button.appendChild(setupSvg(iconSvg, iconRect, iconLine, iconPath));
 
       const btnLinkParent = item?.childNodes[0]?.childNodes[4]?.childNodes;
 
@@ -64,7 +64,7 @@ const linkLogic = () => {
         return;
       }
 
-      buttonStyles(button);
+      setButtonStyles(button);
 
       item.addEventListener("mouseenter", () => {
         if (!(btnLinkParent[0].className === "button-href")) {
@@ -81,7 +81,7 @@ const linkLogic = () => {
   );
 };
 
-const countTotalPoints = (namesOfTasks) => {
+const getTotalPoints = (namesOfTasks) => {
   const regexForTotalPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
   return Array.from(namesOfTasks)
@@ -95,27 +95,23 @@ const countTotalPoints = (namesOfTasks) => {
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 };
 
-const totalPointsStyle = (
+const setTotalPointsStyle = (
   totalPointsElement,
   totalPointsSpan,
   buttonsGroup,
   totalPointsParent,
-  editProjectName,
+  headerOfProject,
   totalPoints
 ) => {
-  if (buttonsGroup.clientWidth <= 291) {
-    buttonsGroup.style.left = "205px";
-  } else if (editProjectName) {
-    buttonsGroup.style.left = "121px";
-  } else {
-    buttonsGroup.style.left = "189px";
-  }
+  headerOfProject.style.alignItems = "baseline";
 
   buttonsGroup.style.position = "relative";
   buttonsGroup.style.bottom = "24px";
+  buttonsGroup.style.left = "190px";
 
   totalPointsParent.style.order = "1";
-  totalPointsParent.style.textAlign = "center";
+  totalPointsParent.style.minWidth = "190px";
+  totalPointsParent.style.alignItems = "flex-end";
 
   totalPointsElement.textContent = "Total points left for this project: ";
   totalPointsElement.style.fontFamily = "Inter";
@@ -137,32 +133,30 @@ const totalPointsLogic = () => {
   const buttonsGroup = headerOfProject.querySelector(
     "div.view_header__actions"
   );
-  const editProjectName = document.querySelector(
-    "[data-testid=view_header__form]"
-  );
+
   const totalPointsId = "#TOTAL_POINTS_ID";
   const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
 
-  totalPointsStyle(
+  setTotalPointsStyle(
     totalPointsElement,
     totalPointsSpan,
     buttonsGroup,
     totalPointsParent,
-    editProjectName,
-    countTotalPoints(namesOfTasks)
+    headerOfProject,
+    getTotalPoints(namesOfTasks)
   );
 
   totalPointsElement.append(totalPointsSpan);
   totalPointsParent.append(totalPointsElement);
 
+  const totalPoints = headerOfProject.querySelector(totalPointsId);
+  const totalPointsSpan2 = headerOfProject.querySelector(totalPointsSpanId);
   if (
-    headerOfProject.querySelector(totalPointsId) &&
-    +headerOfProject.querySelector(totalPointsSpanId)?.textContent !==
-      countTotalPoints(namesOfTasks)
+    totalPoints &&
+    +totalPointsSpan2?.textContent !== getTotalPoints(namesOfTasks)
   ) {
-    headerOfProject.querySelector(totalPointsSpanId).textContent =
-      countTotalPoints(namesOfTasks);
-  } else if (headerOfProject.querySelector(totalPointsId)) {
+    totalPointsSpan2.textContent = getTotalPoints(namesOfTasks);
+  } else if (totalPoints) {
     return;
   } else {
     headerOfProject.childNodes[1].after(totalPointsParent);
@@ -170,11 +164,16 @@ const totalPointsLogic = () => {
   }
 };
 
-const projectBlock = () => {
-  if (window.location.href.includes("https://todoist.com/app/project")) {
+const projectModule = () => {
+  const windowLink = window.location.href;
+  const todoistLink = "https://todoist.com/app";
+  if (
+    windowLink.includes(`${todoistLink}/project`) ||
+    windowLink === `${todoistLink}/today`
+  ) {
     linkLogic();
     totalPointsLogic();
   }
 };
 
-export default projectBlock;
+export default projectModule;
