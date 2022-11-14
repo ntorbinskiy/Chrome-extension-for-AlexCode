@@ -108,18 +108,14 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
 };
 
 const activityModule = () => {
-  if (!window.location.href.includes("https://todoist.com/app/activity")) {
-    return;
-  }
-
-  const sectionElem = document.getElementsByClassName("section");
+  const sectionElement = document.getElementsByClassName("section");
   const items = document.querySelectorAll("ul.items");
   const itemsArray = Array.from(items);
   const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
   getItemsScores(itemsArray, getItemScore, regexForScoreAndPoints).map(
     (item, index) => {
-      return pastDivToPage(item, index, sectionElem);
+      return pastDivToPage(item, index, sectionElement);
     }
   );
 

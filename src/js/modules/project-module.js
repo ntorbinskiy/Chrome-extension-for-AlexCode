@@ -101,17 +101,36 @@ const setTotalPointsStyle = (
   buttonsGroup,
   totalPointsParent,
   headerOfProject,
+  projectName,
+  editProjectName,
   totalPoints
 ) => {
-  headerOfProject.style.alignItems = "baseline";
+  headerOfProject.style.display = "grid";
+  headerOfProject.style.gridTemplateRows = "0fr 2fr";
+  headerOfProject.style.gridTemplateColumns = "auto auto";
+  headerOfProject.style.alignItems = "center";
+  headerOfProject.style.gap = "21px";
 
-  buttonsGroup.style.position = "relative";
-  buttonsGroup.style.bottom = "24px";
-  buttonsGroup.style.left = "190px";
-
-  totalPointsParent.style.order = "1";
   totalPointsParent.style.minWidth = "190px";
-  totalPointsParent.style.alignItems = "flex-end";
+  totalPointsParent.style.justifySelf = "end";
+  totalPointsParent.style.gridColumnStart = -2;
+  totalPointsParent.style.gridRowStart = 2;
+
+  if (editProjectName) {
+    editProjectName.style.gridRow = "span 2";
+  } else if (projectName) {
+    projectName.style.gridRowStart = 2;
+  }
+
+  if (
+    projectName?.parentElement &&
+    projectName?.parentElement !== headerOfProject
+  ) {
+    projectName.parentElement.style.gridRowStart = 2;
+    headerOfProject.style.alignItems = "center";
+  }
+
+  buttonsGroup.style.gridColumnStart = 2;
 
   totalPointsElement.textContent = "Total points left for this project: ";
   totalPointsElement.style.fontFamily = "Inter";
@@ -133,7 +152,10 @@ const totalPointsLogic = () => {
   const buttonsGroup = headerOfProject.querySelector(
     "div.view_header__actions"
   );
-
+  const editProjectName = document.querySelector(
+    "[data-testid=view_header__form]"
+  );
+  const projectName = document.querySelector("h1");
   const totalPointsId = "#TOTAL_POINTS_ID";
   const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
 
@@ -143,6 +165,8 @@ const totalPointsLogic = () => {
     buttonsGroup,
     totalPointsParent,
     headerOfProject,
+    projectName,
+    editProjectName,
     getTotalPoints(namesOfTasks)
   );
 
@@ -165,15 +189,8 @@ const totalPointsLogic = () => {
 };
 
 const projectModule = () => {
-  const windowLink = window.location.href;
-  const todoistLink = "https://todoist.com/app";
-  if (
-    windowLink.includes(`${todoistLink}/project`) ||
-    windowLink === `${todoistLink}/today`
-  ) {
-    linkLogic();
-    totalPointsLogic();
-  }
+  linkLogic();
+  totalPointsLogic();
 };
 
 export default projectModule;
