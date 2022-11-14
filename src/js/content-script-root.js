@@ -4,7 +4,13 @@ import connectFonts from "./fonts/connectFonts";
 
 connectFonts();
 
-setTimeout(async () => {
-  await runApp();
-  mutationObserver();
-}, 1000);
+window.addEventListener(
+  "load",
+  () => {
+    setTimeout(() => {
+      runApp();
+      mutationObserver();
+    }, 600);
+  },
+  false
+);

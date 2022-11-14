@@ -105,9 +105,9 @@ const setTotalPointsStyle = (
 ) => {
   headerOfProject.style.alignItems = "baseline";
 
-  buttonsGroup.style.position = "relative";
-  buttonsGroup.style.bottom = "24px";
-  buttonsGroup.style.left = "190px";
+  //   buttonsGroup.style.position = "relative";
+  //   buttonsGroup.style.bottom = "24px";
+  //   buttonsGroup.style.left = "190px";
 
   totalPointsParent.style.order = "1";
   totalPointsParent.style.minWidth = "190px";
@@ -165,15 +165,8 @@ const totalPointsLogic = () => {
 };
 
 const projectModule = () => {
-  const windowLink = window.location.href;
-  const todoistLink = "https://todoist.com/app";
-  if (
-    windowLink.includes(`${todoistLink}/project`) ||
-    windowLink === `${todoistLink}/today`
-  ) {
-    linkLogic();
-    totalPointsLogic();
-  }
+  linkLogic();
+  totalPointsLogic();
 };
 
 export default projectModule;
