@@ -101,26 +101,36 @@ const setTotalPointsStyle = (
   buttonsGroup,
   totalPointsParent,
   headerOfProject,
-  titleOfProject,
-  editTitleOfProject,
+  projectName,
+  editProjectName,
   totalPoints
 ) => {
-  if (editTitleOfProject) {
-    editTitleOfProject.gridRow = "span 2";
-  }
   headerOfProject.style.display = "grid";
-  headerOfProject.style.gridTemplateRows = "auto auto";
+  headerOfProject.style.gridTemplateRows = "0fr 2fr";
   headerOfProject.style.gridTemplateColumns = "auto auto";
-  headerOfProject.style.alignItems = "baseline";
-
-  titleOfProject.style.gridRowEnd = 3;
-
-  buttonsGroup.style.gridColumnStart = 2;
+  headerOfProject.style.alignItems = "center";
+  headerOfProject.style.gap = "21px";
 
   totalPointsParent.style.minWidth = "190px";
   totalPointsParent.style.justifySelf = "end";
   totalPointsParent.style.gridColumnStart = -2;
   totalPointsParent.style.gridRowStart = 2;
+
+  if (editProjectName) {
+    editProjectName.style.gridRow = "span 2";
+  } else if (projectName) {
+    projectName.style.gridRowStart = 2;
+  }
+
+  if (
+    projectName?.parentElement &&
+    projectName?.parentElement !== headerOfProject
+  ) {
+    projectName.parentElement.style.gridRowStart = 2;
+    headerOfProject.style.alignItems = "center";
+  }
+
+  buttonsGroup.style.gridColumnStart = 2;
 
   totalPointsElement.textContent = "Total points left for this project: ";
   totalPointsElement.style.fontFamily = "Inter";
@@ -142,9 +152,10 @@ const totalPointsLogic = () => {
   const buttonsGroup = headerOfProject.querySelector(
     "div.view_header__actions"
   );
-  const editTitleOfProject = headerOfProject.querySelector(
-    "[data-testid='view_header__form']"
+  const editProjectName = document.querySelector(
+    "[data-testid=view_header__form]"
   );
+  const projectName = document.querySelector("h1");
   const totalPointsId = "#TOTAL_POINTS_ID";
   const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
 
@@ -154,8 +165,8 @@ const totalPointsLogic = () => {
     buttonsGroup,
     totalPointsParent,
     headerOfProject,
-    headerOfProject.childNodes[0],
-    editTitleOfProject,
+    projectName,
+    editProjectName,
     getTotalPoints(namesOfTasks)
   );
 
