@@ -10,7 +10,7 @@ window.addEventListener(
     setTimeout(() => {
       runApp();
       mutationObserver();
-    }, 600);
+    }, 700);
   },
   false
 );

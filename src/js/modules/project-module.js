@@ -101,17 +101,26 @@ const setTotalPointsStyle = (
   buttonsGroup,
   totalPointsParent,
   headerOfProject,
+  titleOfProject,
+  editTitleOfProject,
   totalPoints
 ) => {
+  if (editTitleOfProject) {
+    editTitleOfProject.gridRow = "span 2";
+  }
+  headerOfProject.style.display = "grid";
+  headerOfProject.style.gridTemplateRows = "auto auto";
+  headerOfProject.style.gridTemplateColumns = "auto auto";
   headerOfProject.style.alignItems = "baseline";
 
-  //   buttonsGroup.style.position = "relative";
-  //   buttonsGroup.style.bottom = "24px";
-  //   buttonsGroup.style.left = "190px";
+  titleOfProject.style.gridRowEnd = 3;
 
-  totalPointsParent.style.order = "1";
+  buttonsGroup.style.gridColumnStart = 2;
+
   totalPointsParent.style.minWidth = "190px";
-  totalPointsParent.style.alignItems = "flex-end";
+  totalPointsParent.style.justifySelf = "end";
+  totalPointsParent.style.gridColumnStart = -2;
+  totalPointsParent.style.gridRowStart = 2;
 
   totalPointsElement.textContent = "Total points left for this project: ";
   totalPointsElement.style.fontFamily = "Inter";
@@ -133,7 +142,9 @@ const totalPointsLogic = () => {
   const buttonsGroup = headerOfProject.querySelector(
     "div.view_header__actions"
   );
-
+  const editTitleOfProject = headerOfProject.querySelector(
+    "[data-testid='view_header__form']"
+  );
   const totalPointsId = "#TOTAL_POINTS_ID";
   const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
 
@@ -143,6 +154,8 @@ const totalPointsLogic = () => {
     buttonsGroup,
     totalPointsParent,
     headerOfProject,
+    headerOfProject.childNodes[0],
+    editTitleOfProject,
     getTotalPoints(namesOfTasks)
   );
 
