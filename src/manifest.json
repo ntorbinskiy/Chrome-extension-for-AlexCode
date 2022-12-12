@@ -1,6 +1,6 @@
 {
   "name": "Todoist enhanced",
-  "description": "Todoist extension",
+  "description": "Todoist enhanced",
   "version": "1.4",
   "content_scripts": [
     {
