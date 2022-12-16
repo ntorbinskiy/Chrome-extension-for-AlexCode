@@ -35,6 +35,7 @@ var options = {
   output: {
     path: path.join(__dirname, "build"),
     filename: "[name].bundle.js",
+    assetModuleFilename: "icons/[hash][ext][query]",
   },
   module: {
     rules: [
