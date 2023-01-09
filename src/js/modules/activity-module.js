@@ -1,9 +1,6 @@
 const isCompleteTask = (svgPath) =>
   svgPath === "sm1/notification_completed.svg";
 
-const isIconCompleted = (element) =>
-  element.children[0].dataset.svgsPath !== "sm1/notification_completed.svg";
-
 const getItemScore = (name, regex) => {
   const scoreText = name.replaceAll("\n", " ").match(regex)?.groups?.["score"];
   return scoreText ? parseInt(scoreText) : undefined;
@@ -78,9 +75,10 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
   Array.from(icons).map((element) => {
     const elementParent = element.parentElement.parentElement;
 
-    if (isIconCompleted(element)) {
+    if (!isCompleteTask(element.childNodes[0].dataset.svgsPath)) {
       return;
     }
+
     const listItem = elementParent.childNodes;
 
     const span = elementParent.childNodes[1].childNodes[1];
