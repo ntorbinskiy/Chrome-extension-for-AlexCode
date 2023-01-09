@@ -121,14 +121,14 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
 };
 
 const activityModule = () => {
-  const sectionElement = document.getElementsByClassName("section");
+  const sectionsOfTasks = document.getElementsByClassName("section");
   const tasks = document.querySelectorAll("ul.items");
   const tasksArray = Array.from(tasks);
   const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
   getItemsScores(tasksArray, getItemScore, regexForScoreAndPoints).map(
     (task, index) => {
-      return postCounterToPage(task, index, sectionElement);
+      return postCounterToPage(task, index, sectionsOfTasks);
     }
   );
 
