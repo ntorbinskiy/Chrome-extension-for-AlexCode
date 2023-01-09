@@ -11,7 +11,6 @@ const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {
     const taskChildNodes = [...task.childNodes];
     return taskChildNodes
       .map((taskChildNode) => {
-        console.log(taskChildNode.childNodes[0].childNodes[1].childNodes[0]);
         const svgPathOfItemChildNode =
           taskChildNode.childNodes[0].childNodes[1].childNodes[0].dataset
             .svgsPath;
