@@ -47,7 +47,7 @@ const linkLogic = () => {
   const listOfTasks = document.getElementsByClassName("items");
 
   nodeToArray(listOfTasks).map((task) =>
-    nodeToArray(task.childNodes).map((item) => {
+    nodeToArray(task.childNodes).map((taskChildNode) => {
       const button = document.createElement("button");
       const svgPath = "http://www.w3.org/2000/svg";
 
@@ -58,23 +58,28 @@ const linkLogic = () => {
 
       button.appendChild(setupSvg(iconSvg, iconRect, iconLine, iconPath));
 
-      const btnLinkParent = item?.childNodes[0]?.childNodes[4]?.childNodes;
+      const buttonLinkParent = taskChildNode.querySelector(
+        ".task_list_item__actions--active"
+      )?.childNodes;
 
-      if (!btnLinkParent) {
+      if (!buttonLinkParent) {
         return;
       }
 
       setButtonStyles(button);
 
-      item.addEventListener("mouseenter", () => {
-        if (!(btnLinkParent[0].className === "button-href")) {
-          btnLinkParent[0].before(button);
+      taskChildNode.addEventListener("mouseenter", () => {
+        if (!(buttonLinkParent[0].className === "button-href")) {
+          buttonLinkParent[0].before(button);
         }
       });
 
       button.addEventListener("click", () => {
         window
-          .open(`https://todoist.com/app/task/${item.dataset.itemId}`, "_blank")
+          .open(
+            `https://todoist.com/app/task/${taskChildNode.dataset.itemId}`,
+            "_blank"
+          )
           .focus();
       });
     })
@@ -140,7 +145,7 @@ const setTotalPointsStyle = (
   totalPointsSpan.style.fontFamily = "Inter";
   totalPointsSpan.style.fontSize = "12px";
   totalPointsSpan.style.fontWeight = "700";
-  totalPointsSpan.id = "TOTAL_POINTS_SPAN_ID";
+  totalPointsSpan.id = "TOTAL_POINTS_SCORE_ID";
 };
 
 const totalPointsLogic = () => {
@@ -157,7 +162,7 @@ const totalPointsLogic = () => {
   );
   const projectName = document.querySelector("h1");
   const totalPointsId = "#TOTAL_POINTS_ID";
-  const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
+  const totalPointsScoreId = "#TOTAL_POINTS_SCORE_ID";
 
   setTotalPointsStyle(
     totalPointsElement,
@@ -174,7 +179,7 @@ const totalPointsLogic = () => {
   totalPointsParent.append(totalPointsElement);
 
   const totalPoints = headerOfProject.querySelector(totalPointsId);
-  const totalPointsSpan2 = headerOfProject.querySelector(totalPointsSpanId);
+  const totalPointsSpan2 = headerOfProject.querySelector(totalPointsScoreId);
   if (
     totalPoints &&
     +totalPointsSpan2?.textContent !== getTotalPoints(namesOfTasks)
