@@ -92,13 +92,13 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
 
     if (score === undefined) {
       elementParent.style.backgroundColor = "rgba(246, 193, 4, 0.11)";
-      if (span.id === "nopoints") {
+      if (span.id === "noPoints") {
         return;
       }
 
       const noPoints = document.createElement("span");
       noPoints.innerHTML = "No points entered for this task";
-      span.id = "nopoints";
+      span.id = "noPoints";
       noPoints.style.fontSize = "11px";
       noPoints.style.fontWeight = 500;
       noPoints.style.fontFamily = "Inter";
