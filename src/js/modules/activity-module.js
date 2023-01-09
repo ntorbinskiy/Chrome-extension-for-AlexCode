@@ -35,6 +35,7 @@ const setStylesForScores = (sumOfScores, textForScore, counterNum, points) => {
   sumOfScores.style.fontWeight = 700;
   sumOfScores.style.fontFamily = "Inter";
   sumOfScores.style.position = "relative";
+  sumOfScores.id = "scoreSum";
 
   textForScore.innerHTML = `Total Score For This Day: `;
   textForScore.style.fontSize = "12px";
@@ -51,17 +52,19 @@ const postCounterToPage = (points, numForId, parent) => {
   const scoreText = document.createElement("span");
   const scoreSum = document.createElement("span");
 
-  const scoreBlockParent = parent[numForId].childNodes[0].childNodes[1];
+  const scoreBlockParent = parent[numForId].querySelector("h2");
 
   scoreBlock.append(scoreText, scoreSum);
 
   setStylesForScores(scoreSum, scoreText, scoreBlockParent, points);
 
+  const scoreTextOnPage = scoreBlockParent?.querySelector("#scoreSum");
+
   if (
     scoreBlockParent.id === "counter" &&
-    +scoreBlockParent?.childNodes[1]?.childNodes[1].textContent !== points
+    +scoreTextOnPage.textContent !== points
   ) {
-    scoreBlockParent.childNodes[1].childNodes[1].textContent = points;
+    scoreTextOnPage.textContent = points;
   } else if (scoreBlockParent.id === "counter") {
     return;
   } else {
