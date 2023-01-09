@@ -56,6 +56,7 @@ const pastCounterToPage = (points, numForId, parent) => {
   scoreBlock.append(textForScore, sumOfScores);
 
   setStylesForScores(sumOfScores, textForScore, scoreBlockParent, points);
+
   if (
     scoreBlockParent.id === "counter" &&
     +scoreBlockParent?.childNodes[1]?.childNodes[1].textContent !== points
@@ -88,11 +89,13 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
         .childNodes[0].textContent;
 
     const score = getItemScore(taskName, regexForScoreAndPoints);
+
     if (score === undefined) {
       elementParent.style.backgroundColor = "rgba(246, 193, 4, 0.11)";
       if (span.id === "nopoints") {
         return;
       }
+
       const noPoints = document.createElement("span");
       noPoints.innerHTML = "No points entered for this task";
       span.id = "nopoints";
