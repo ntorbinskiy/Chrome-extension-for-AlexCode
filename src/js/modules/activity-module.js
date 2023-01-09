@@ -12,8 +12,7 @@ const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {
     return taskChildNodes
       .map((taskChildNode) => {
         const svgPathOfItemChildNode =
-          taskChildNode.childNodes[0].childNodes[1].childNodes[0].dataset
-            .svgsPath;
+          taskChildNode.querySelector("svg").dataset.svgsPath;
 
         if (isCompleteTask(svgPathOfItemChildNode)) {
           const itemScore = getItemScore(
