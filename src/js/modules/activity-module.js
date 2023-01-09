@@ -48,14 +48,14 @@ const setStylesForScores = (sumOfScores, textForScore, counterNum, points) => {
 
 const postCounterToPage = (points, numForId, parent) => {
   const scoreBlock = document.createElement("div");
-  const textForScore = document.createElement("span");
-  const sumOfScores = document.createElement("span");
+  const scoreText = document.createElement("span");
+  const scoreSum = document.createElement("span");
 
   const scoreBlockParent = parent[numForId].childNodes[0].childNodes[1];
 
-  scoreBlock.append(textForScore, sumOfScores);
+  scoreBlock.append(scoreText, scoreSum);
 
-  setStylesForScores(sumOfScores, textForScore, scoreBlockParent, points);
+  setStylesForScores(scoreSum, scoreText, scoreBlockParent, points);
 
   if (
     scoreBlockParent.id === "counter" &&
@@ -71,9 +71,9 @@ const postCounterToPage = (points, numForId, parent) => {
 };
 
 const checkIsTaskCorrect = (regexForScoreAndPoints) => {
-  const icons = document.getElementsByClassName("avatar_event_icon");
+  const taskIcons = document.getElementsByClassName("avatar_event_icon");
 
-  Array.from(icons).map((element) => {
+  Array.from(taskIcons).map((element) => {
     const elementParent = element.parentElement.parentElement;
 
     if (!isCompleteTask(element.childNodes[0].dataset.svgsPath)) {
