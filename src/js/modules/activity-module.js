@@ -20,6 +20,7 @@ const getItemsScores = (items, getItemScore, regexForScoreAndPoints) => {
             itemChildNode.innerText,
             regexForScoreAndPoints
           );
+
           return itemScore ?? 0;
         } else {
           return 0;
