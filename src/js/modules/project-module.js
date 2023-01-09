@@ -145,7 +145,7 @@ const setTotalPointsStyle = (
   totalPointsSpan.style.fontFamily = "Inter";
   totalPointsSpan.style.fontSize = "12px";
   totalPointsSpan.style.fontWeight = "700";
-  totalPointsSpan.id = "TOTAL_POINTS_SPAN_ID";
+  totalPointsSpan.id = "TOTAL_POINTS_SCORE_ID";
 };
 
 const totalPointsLogic = () => {
@@ -162,7 +162,7 @@ const totalPointsLogic = () => {
   );
   const projectName = document.querySelector("h1");
   const totalPointsId = "#TOTAL_POINTS_ID";
-  const totalPointsSpanId = "#TOTAL_POINTS_SPAN_ID";
+  const totalPointsScoreId = "#TOTAL_POINTS_SCORE_ID";
 
   setTotalPointsStyle(
     totalPointsElement,
@@ -179,7 +179,7 @@ const totalPointsLogic = () => {
   totalPointsParent.append(totalPointsElement);
 
   const totalPoints = headerOfProject.querySelector(totalPointsId);
-  const totalPointsSpan2 = headerOfProject.querySelector(totalPointsSpanId);
+  const totalPointsSpan2 = headerOfProject.querySelector(totalPointsScoreId);
   if (
     totalPoints &&
     +totalPointsSpan2?.textContent !== getTotalPoints(namesOfTasks)
