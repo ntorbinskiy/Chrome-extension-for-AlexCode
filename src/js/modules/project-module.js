@@ -47,7 +47,7 @@ const linkLogic = () => {
   const listOfTasks = document.getElementsByClassName("items");
 
   nodeToArray(listOfTasks).map((task) =>
-    nodeToArray(task.childNodes).map((item) => {
+    nodeToArray(task.childNodes).map((taskChildNode) => {
       const button = document.createElement("button");
       const svgPath = "http://www.w3.org/2000/svg";
 
@@ -58,23 +58,28 @@ const linkLogic = () => {
 
       button.appendChild(setupSvg(iconSvg, iconRect, iconLine, iconPath));
 
-      const btnLinkParent = item?.childNodes[0]?.childNodes[4]?.childNodes;
+      const buttonLinkParent = taskChildNode.querySelector(
+        ".task_list_item__actions--active"
+      )?.childNodes;
 
-      if (!btnLinkParent) {
+      if (!buttonLinkParent) {
         return;
       }
 
       setButtonStyles(button);
 
-      item.addEventListener("mouseenter", () => {
-        if (!(btnLinkParent[0].className === "button-href")) {
-          btnLinkParent[0].before(button);
+      taskChildNode.addEventListener("mouseenter", () => {
+        if (!(buttonLinkParent[0].className === "button-href")) {
+          buttonLinkParent[0].before(button);
         }
       });
 
       button.addEventListener("click", () => {
         window
-          .open(`https://todoist.com/app/task/${item.dataset.itemId}`, "_blank")
+          .open(
+            `https://todoist.com/app/task/${taskChildNode.dataset.itemId}`,
+            "_blank"
+          )
           .focus();
       });
     })
