@@ -11,6 +11,7 @@ const getItemsScores = (items, getItemScore, regexForScoreAndPoints) => {
     const childNodes = [...item.childNodes];
     return childNodes
       .map((itemChildNode) => {
+        console.log(itemChildNode.childNodes[0].childNodes[1].childNodes[0]);
         const svgPathOfItemChildNode =
           itemChildNode.childNodes[0].childNodes[1].childNodes[0].dataset
             .svgsPath;
@@ -117,11 +118,11 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
 
 const activityModule = () => {
   const sectionElement = document.getElementsByClassName("section");
-  const items = document.querySelectorAll("ul.items");
-  const itemsArray = Array.from(items);
+  const tasks = document.querySelectorAll("ul.items");
+  const tasksArray = Array.from(tasks);
   const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
-  getItemsScores(itemsArray, getItemScore, regexForScoreAndPoints).map(
+  getItemsScores(tasksArray, getItemScore, regexForScoreAndPoints).map(
     (item, index) => {
       return postCounterToPage(item, index, sectionElement);
     }
