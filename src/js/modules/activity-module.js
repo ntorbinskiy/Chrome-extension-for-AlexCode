@@ -81,32 +81,30 @@ const postCounterToPage = (points, numForId, parent) => {
 const checkIsTaskCorrect = (regexForScoreAndPoints) => {
   const taskIcons = document.getElementsByClassName("avatar_event_icon");
 
-  Array.from(taskIcons).map((element) => {
-    const elementParent = element.parentElement.parentElement;
+  Array.from(taskIcons).map((taskIcon) => {
+    const taskItem = taskIcon.parentElement.parentElement;
 
-    if (!isCompleteTask(element.childNodes[0].dataset.svgsPath)) {
+    if (!isCompleteTask(taskIcon.querySelector("svg").dataset.svgsPath)) {
       return;
     }
 
-    const listItem = elementParent.childNodes;
+    const taskTime = taskItem.querySelector("span.activity_time");
 
-    const span = elementParent.childNodes[1].childNodes[1];
+    const taskName = taskItem.querySelector(".markdown_content").textContent;
 
-    const taskName =
-      elementParent.childNodes[1].childNodes[0].childNodes[2].childNodes[0]
-        .childNodes[0].textContent;
+    const taskText = taskItem.querySelector(".text");
 
     const score = getItemScore(taskName, regexForScoreAndPoints);
 
     if (score === undefined) {
-      elementParent.style.backgroundColor = "rgba(246, 193, 4, 0.11)";
-      if (span.id === "noPoints") {
+      taskItem.style.backgroundColor = "rgba(246, 193, 4, 0.11)";
+      if (taskTime?.id === "noPoints") {
         return;
       }
 
       const noPoints = document.createElement("span");
       noPoints.innerHTML = "No points entered for this task";
-      span.id = "noPoints";
+      taskTime.id = "noPoints";
       noPoints.style.fontSize = "11px";
       noPoints.style.fontWeight = 500;
       noPoints.style.fontFamily = "Inter";
@@ -117,7 +115,7 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
       if (taskName.length >= 86) {
         noPoints.style.left = "64px";
       }
-      listItem[1].after(noPoints);
+      taskText.after(noPoints);
     }
   });
 };
