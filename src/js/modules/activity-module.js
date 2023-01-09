@@ -29,22 +29,27 @@ const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {
   });
 };
 
-const setStylesForScores = (sumOfScores, textForScore, counterNum, points) => {
-  sumOfScores.innerHTML = points;
-  sumOfScores.style.fontSize = "12px";
-  sumOfScores.style.fontWeight = 700;
-  sumOfScores.style.fontFamily = "Inter";
-  sumOfScores.style.position = "relative";
-  sumOfScores.id = "scoreSum";
+const setStylesForScores = (
+  scoreSum,
+  scoreText,
+  scoreBlockParent,
+  pointsCount
+) => {
+  scoreSum.innerHTML = pointsCount;
+  scoreSum.style.fontSize = "12px";
+  scoreSum.style.fontWeight = 700;
+  scoreSum.style.fontFamily = "Inter";
+  scoreSum.style.position = "relative";
+  scoreSum.id = "scoreSum";
 
-  textForScore.innerHTML = `Total Score For This Day: `;
-  textForScore.style.fontSize = "12px";
-  textForScore.style.fontWeight = 400;
-  textForScore.style.fontFamily = "Inter";
-  textForScore.style.position = "relative";
+  scoreText.innerHTML = `Total Score For This Day: `;
+  scoreText.style.fontSize = "12px";
+  scoreText.style.fontWeight = 400;
+  scoreText.style.fontFamily = "Inter";
+  scoreText.style.position = "relative";
 
-  counterNum.style.display = "flex";
-  counterNum.style.justifyContent = "space-between";
+  scoreBlockParent.style.display = "flex";
+  scoreBlockParent.style.justifyContent = "space-between";
 };
 
 const postCounterToPage = (points, numForId, parent) => {
