@@ -1,6 +1,5 @@
-const isCompleteTask = (taskElement) =>
-  taskElement.childNodes[0].childNodes[1].childNodes[0].dataset.svgsPath ===
-  "sm1/notification_completed.svg";
+const isCompleteTask = (svgPath) =>
+  svgPath === "sm1/notification_completed.svg";
 
 const isIconCompleted = (element) =>
   element.children[0].dataset.svgsPath !== "sm1/notification_completed.svg";
@@ -14,9 +13,16 @@ const getItemsScores = (items, getItemScore, regexForScoreAndPoints) => {
   return items.map((item) => {
     const childNodes = [...item.childNodes];
     return childNodes
-      .map((i) => {
-        if (isCompleteTask(i)) {
-          const itemScore = getItemScore(i.innerText, regexForScoreAndPoints);
+      .map((itemChildNode) => {
+        const svgPathOfItemChildNode =
+          itemChildNode.childNodes[0].childNodes[1].childNodes[0].dataset
+            .svgsPath;
+
+        if (isCompleteTask(svgPathOfItemChildNode)) {
+          const itemScore = getItemScore(
+            itemChildNode.innerText,
+            regexForScoreAndPoints
+          );
           return itemScore ?? 0;
         } else {
           return 0;
