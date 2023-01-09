@@ -46,7 +46,7 @@ const setStylesForScores = (sumOfScores, textForScore, counterNum, points) => {
   counterNum.style.justifyContent = "space-between";
 };
 
-const pastDivToPage = (points, numForId, parent) => {
+const pastCounterToPage = (points, numForId, parent) => {
   const scoreBlock = document.createElement("div");
   const textForScore = document.createElement("span");
   const sumOfScores = document.createElement("span");
@@ -119,7 +119,7 @@ const activityModule = () => {
 
   getItemsScores(itemsArray, getItemScore, regexForScoreAndPoints).map(
     (item, index) => {
-      return pastDivToPage(item, index, sectionElement);
+      return pastCounterToPage(item, index, sectionElement);
     }
   );
 
