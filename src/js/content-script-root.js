@@ -7,14 +7,15 @@ import "../icons/icon32.png";
 import "../icons/icon16.png";
 
 connectFonts();
+const bootstrapApp = () => {
+  runApp();
+  mutationObserver();
+};
 
-window.addEventListener(
-  "load",
-  () => {
-    setTimeout(() => {
-      runApp();
-      mutationObserver();
-    }, 700);
-  },
-  false
-);
+const interval = setInterval(() => {
+  const homeButton = document.querySelector("button.home_btn");
+  if (homeButton) {
+    bootstrapApp();
+    clearInterval(interval);
+  }
+}, 100);
