@@ -6,9 +6,8 @@ import "../icons/icon48.png";
 import "../icons/icon32.png";
 import "../icons/icon16.png";
 
-connectFonts();
-
 const bootstrapApp = () => {
+  connectFonts();
   runApp();
   mutationObserver();
 };
