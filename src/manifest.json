@@ -1,7 +1,7 @@
 {
   "name": "Todoist enhanced",
   "description": "Todoist enhanced",
-  "version": "1.6",
+  "version": "1.7",
   "content_scripts": [
     {
       "matches": ["https://todoist.com/app/*"],

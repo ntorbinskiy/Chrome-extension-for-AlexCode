@@ -88,8 +88,12 @@ const linkLogic = () => {
 
 const getTotalPoints = (namesOfTasks) => {
   const regexForTotalPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
+  const modalDialog = document.querySelector("div[role=dialog]");
 
   return Array.from(namesOfTasks)
+    .filter((task) => {
+      return modalDialog === null || !modalDialog.contains(task);
+    })
     .map((nameOfTaskItem) => {
       const scoreText = nameOfTaskItem.textContent
         .replaceAll("\n", " ")
