@@ -1,4 +1,4 @@
-import mutationObserver from "./mutationObserver";
+import mutationObserver from "./mutation-observer";
 import runApp from "./modules/runApp";
 import connectFonts from "./fonts/connectFonts";
 import "../icons/icon128.png";
