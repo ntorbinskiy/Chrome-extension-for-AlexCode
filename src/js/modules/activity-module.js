@@ -103,6 +103,7 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
       }
 
       const noPoints = document.createElement("span");
+
       noPoints.innerHTML = "No points entered for this task";
       taskTime.id = "noPoints";
       noPoints.style.fontSize = "11px";
@@ -112,6 +113,7 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
       noPoints.style.position = "relative";
       noPoints.style.top = "0px";
       noPoints.style.left = "0px";
+
       if (taskName.length >= 86) {
         noPoints.style.left = "64px";
       }
