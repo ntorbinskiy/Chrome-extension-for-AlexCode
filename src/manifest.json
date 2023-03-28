@@ -1,7 +1,7 @@
 {
-  "name": "Todoist enhanced",
-  "description": "Todoist enhanced",
-  "version": "1.7",
+  "name": "Enchantments for Todoist",
+  "description": "Enchantments for Todoist",
+  "version": "1.8",
   "content_scripts": [
     {
       "matches": ["https://todoist.com/app/*"],

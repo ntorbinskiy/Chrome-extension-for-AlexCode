@@ -1,7 +1,7 @@
 {
-  "name": "todoist-enhanced",
+  "name": "enchantments-for-todoist",
   "version": "0.0.1",
-  "description": "Todoist enhanced",
+  "description": "Enchantments for Todoist",
   "scripts": {
     "build": "node utils/build.js",
     "start": "node utils/webserver.js"
